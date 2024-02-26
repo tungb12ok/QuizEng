@@ -1,0 +1,61 @@
+﻿<div class="container mt-5">
+    <h2>Create Quiz</h2>
+
+    <form method="post" asp-action="Create">
+        <div class="mb-3">
+            <label for="quizTitle" class="form-label">Quiz Title:</label>
+            <input type="text" class="form-control" id="quizTitle" name="QuizTitle">
+        </div>
+
+        <div class="mb-3">
+            <label for="totalQuestions" class="form-label">Total Questions:</label>
+            <input type="text" class="form-control" id="totalQuestions" readonly value="0">
+        </div>
+
+        <div id="questionsContainer">
+            <div class="mb-3 question" data-question-index="0">
+                <label for="questionContent" class="form-label">Question Content:</label>
+                <textarea class="form-control" name="Questions[0].QuestionContent"></textarea>
+
+                <label for="correctAnswer" class="form-label mt-3">Correct Answer:</label>
+                <input type="text" class="form-control" name="Questions[0].CorrectAnswer">
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="addQuestion()">Add More</button>
+        <button type="submit" class="btn btn-success">Create Quiz</button>
+    </form>
+
+    <script>
+        function addQuestion() {
+            // Clone the question template
+            const questionTemplate = document.querySelector('.question');
+            const newQuestion = questionTemplate.cloneNode(true);
+
+            // Increment and update total questions
+            const totalQuestionsInput = document.getElementById('totalQuestions');
+            const currentTotalQuestions = parseInt(totalQuestionsInput.value, 10) + 1;
+            totalQuestionsInput.value = currentTotalQuestions;
+
+            // Update question content label with question number
+            const questionContentLabel = newQuestion.querySelector('label[for="questionContent"]');
+            questionContentLabel.innerText = `Question ${currentTotalQuestions} Content:`;
+
+            // Update data-question-index attribute for the cloned question
+            newQuestion.setAttribute('data-question-index', currentTotalQuestions);
+
+            // Update name attributes for input and textarea in the cloned question
+            const inputs = newQuestion.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                const currentName = input.getAttribute('name');
+                const newName = currentName.replace('[0]', `[${currentTotalQuestions}]`);
+                input.setAttribute('name', newName);
+                input.value = '';
+            });
+
+            // Append the cloned question to the questionsContainer
+            const questionsContainer = document.getElementById('questionsContainer');
+            questionsContainer.appendChild(newQuestion);
+        }
+    </script>
+</div>

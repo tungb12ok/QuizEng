@@ -1,0 +1,33 @@
+﻿@model Web.ViewModel.QuizViewModel
+
+@{
+    var quiz = Model;
+}
+
+<div class="container mt-5">
+    <h2>Update Quiz</h2>
+
+    <div class="mb-3">
+        <label for="quizTitle" class="form-label">Quiz Title:</label>
+        <input type="text" class="form-control" id="quizTitle" name="QuizTitle" value="@quiz.QuizTitle">
+    </div>
+
+    <div class="mb-3">
+        <label for="totalQuestions" class="form-label">Total Questions:</label>
+        <input type="text" class="form-control" id="totalQuestions" readonly value="@quiz.Questions.Count">
+    </div>
+
+    @for (int i = 0; i < quiz.Questions.Count; i++)
+    {
+        <div id="questionsContainer">
+            <div class="mb-3 question" data-question-index="@i">
+                <label for="questionContent" class="form-label">Question Content:</label>
+                <textarea class="form-control" name="Questions[@i].QuestionContent">@quiz.Questions[i].QuestionContent</textarea>
+
+                <label for="correctAnswer" class="form-label mt-3">Correct Answer:</label>
+                <input type="text" class="form-control" name="Questions[@i].CorrectAnswer" value="@quiz.Questions[i].CorrectAnswer">
+                <a asp-action="Edit" asp-controller="Questions" asp-route-id="@quiz.Questions[i].QuestionId" class="btn btn-success">Update</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "Quiz - " + Model.QuizTitle;
+}
+
+<div class="container">
+    <h2>@Model.QuizTitle</h2>
+
+    <form method="post" asp-action="SubmitAnswers" asp-controller="Home">
+        @foreach (var question in Model.Questions)
+        {
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">@question.QuestionContent</h5>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="answer_@question.QuestionId" value="a">
+                        <label class="form-check-label">a</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="answer_@question.QuestionId" value="b">
+                        <label class="form-check-label">b</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="answer_@question.QuestionId" value="c">
+                        <label class="form-check-label">c</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="answer_@question.QuestionId" value="d">
+                        <label class="form-check-label">d</label>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <button type="submit" class="btn btn-primary mt-4">Submit Answers</button>
+    </form>
+</div>

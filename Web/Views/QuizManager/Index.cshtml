@@ -1,0 +1,29 @@
+﻿@model List<Web.ViewModel.QuizViewModel>
+
+<div class="container mt-5">
+    <h2>Quiz List</h2>
+    <a href="./QuizManager/Create" class="btn btn-secondary">Add Quiz</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Quiz ID</th>
+                <th>Quiz Title</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quiz in Model)
+            {
+                <tr>
+                    <td>@quiz.QuizId</td>
+                    <td>@quiz.QuizTitle</td>
+                    <td>
+                        <a asp-action="updateQuiz" asp-controller="QuizManager" asp-route-id="@quiz.QuizId">Update Quiz</a>
+                        <a asp-action="Edit" asp-controller="Quizs" asp-route-id="@quiz.QuizId">Edit Quiz</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

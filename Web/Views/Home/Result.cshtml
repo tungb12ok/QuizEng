@@ -1,0 +1,12 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Quiz Result";
+}
+
+<div class="container">
+    <h2>Quiz Result</h2>
+    <p>Your score: @ViewBag.Score / @ViewBag.Total</p>
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>
+</div>
